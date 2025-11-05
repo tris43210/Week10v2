@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 * {
   margin: 0px;
   padding: 0px;
@@ -8,4 +10,10 @@ canvas {
   position: fixed;
   top: 0;
   left: 0;
+}
+
+.text-container {
+  position: absolute;
+  /* background-color: rgb(168, 168, 168); */
+  
 }
