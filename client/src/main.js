@@ -1,8 +1,7 @@
 import './style.css'
-
 import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/Addons.js';
 import { OrbitControls } from 'three/examples/jsm/Addons.js';
-
 
 const scene = new THREE.Scene();
 
@@ -44,6 +43,12 @@ const material = new THREE.MeshStandardMaterial({color:'red'})
 const torus = new THREE.Mesh (geometry, material);
 
 scene.add(torus)
+
+const gltfLoad = new GLTFLoader();
+gltfLoad.load('./public/nike_air_max_akatsuki/scene.gltf', function(nikeModel) {
+    scene.add(nikeModel.scene)
+})
+
 
 // Directional lighting
 const lightIntensity = 1400
@@ -101,3 +106,18 @@ function animate() {
     renderer.render( scene, camera);
 }
 animate()
+
+function moveCamera() {
+        const t = document.body.getBoundingClientRect().top;
+            nikeModel.rotation.x += 0.05;
+                nikeModel.rotation.y += 0.05;
+                    nikeModel.rotation.z += 0.05;
+
+                        camera.position.z = t * -0.01
+                            camera.position.y = t * -0.01
+                                camera.position.x = t * -0.01
+
+
+                                }
+                                document.body.onscroll = moveCamera
+}
