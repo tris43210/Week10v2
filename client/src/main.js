@@ -21,7 +21,7 @@ renderer.setPixelRatio(window.devicePixelRatio);
 // Sets the viewport to the monitors resolution
 renderer.setSize( window.innerWidth, window.innerHeight);
 //How zoomed in we are to the object
-camera.position.setZ(10);
+camera.position.setZ(15);
 camera.position.setY(10); 
 camera.position.setX(20); 
 
@@ -34,10 +34,8 @@ renderer.render( scene, camera );
 const geometry = new THREE.TorusGeometry( 15, 1, 30, 100)
 
 // Basic material not affected by light source
-
 //three sets of materials Basic, Lambert, Phong 
 
-// const material = new THREE.MeshBasicMaterial({color:'red', wireframe: true})
 const material = new THREE.MeshStandardMaterial({color:'red'})
 
 // Assigning the geometry and material to the torus shape
@@ -46,20 +44,7 @@ const torus = new THREE.Mesh (geometry, material);
 
 scene.add(torus)
 
-
-
-// const gltfLoad = new GLTFLoader();
-// gltfLoad.load('./public/nike_air_max_akatsuki/scene.gltf', function(nikeModel) {
-//     console.dir(nikeModel)
-//     nikeModel.scene.scale.x = 10
-//     nikeModel.scene.scale.y = 10
-//     nikeModel.scene.scale.z = 10
-//     scene.add(nikeModel.scene)
-//     return nikeModel
-// })
-
-
-let nikeModel;   // <-- Global reference
+let nikeModel;  
 
 const gltfLoad = new GLTFLoader();
 gltfLoad.load('./public/nike_air_max_akatsuki/scene.gltf', (gltf) => {
@@ -69,31 +54,24 @@ gltfLoad.load('./public/nike_air_max_akatsuki/scene.gltf', (gltf) => {
     scene.add(nikeModel);
 });
 
-
-
 // Directional lighting
 const lightIntensity = 1400
 const pointLight = new THREE.PointLight(0xffffff, lightIntensity)
 pointLight.position.set(0,0,20)
+
 // Shows a mesh 'helper' that visualises where the point light is coming from
+
 const lightHelper = new THREE.PointLightHelper(pointLight)
-
-//create base grid
-
 const gridHelper = new THREE.GridHelper(200,50);
+const controls = new OrbitControls(camera, renderer.domElement);
 
 scene.add(pointLight)
-
-
 
 // Flat Lighting
 const color = 0xffffff;
 const intensity = 20;
 const light = new THREE.AmbientLight(color, intensity);
 scene.add(light);
-
-
-const controls = new OrbitControls(camera, renderer.domElement);
 
 
 function addStar() {
@@ -109,41 +87,22 @@ function addStar() {
 
 Array(1000).fill().forEach(addStar); 
 
-// const spaceTexture = new THREE.TextureLoader().load('public/0203049~medium.jpg');
-// scene.background = spaceTexture;
-
 
 function moveCamera() {
     const t = document.body.getBoundingClientRect().top;
-    nikeModel.rotation.x += 0.05;
     nikeModel.rotation.y += 0.05;
-    nikeModel.rotation.z += 0.05;
-
-    camera.position.z = t * -0.01
-    camera.position.y = t * -0.01
-    camera.position.x = t * -0.01
 }
 
 document.body.onscroll = moveCamera
 
 // Render/Animation Loop Below 
-
 // request animation frame is similar to setInterval except that when you navigate away 
 // from the page requestAnimationFrame pauses the animation
 
 function animate() {
     requestAnimationFrame(animate)
-
-    // torus.rotation.x -= 0.0005;
     torus.rotation.y -= 0.0005;
-    // torus.rotation.z -= 0.0001;
-
-    // nikeModel.rotation.x += 0.0009;
     nikeModel.rotation.y += 0.0009;
-    // nikeModel.rotation.z += 0.0009;
-
-   
-
     renderer.render( scene, camera);
 }
 animate()
