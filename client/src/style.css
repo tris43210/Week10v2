@@ -3,7 +3,8 @@
 * {
   margin: 0px;
   padding: 0px;
-  box-sizing: border-box;  
+  box-sizing: border-box; 
+    overflow-x: hidden; 
 }
 
 canvas {
@@ -16,18 +17,20 @@ canvas {
   width: 100vw;
   z-index: 99 ; 
   position: absolute;
-  /* display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: repeat(4, 1fr);  */
-  
+  margin-top: 40%;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(3, 1fr); 
+
 }   
 
 
 .slide {
-  /* grid-column: 8/12;
-  grid-row: 3/3; */
-
+  grid-column: 6/8;
+  grid-row: 2/3;
+  width: fit-content;
   padding: 10px;
-  font-size: 100px;
-  background:none;
+  font-size: 4rem;
+  background:white;
+  border-radius: 5px;
 } 
